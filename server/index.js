@@ -1,13 +1,13 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
+import postRoutes from './routes/posts.js';
 const app = express();
 
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use('/posts', postRoutes);
 
 // mongodb
 const CONNECTION_URL = 'mongodb+srv://ParagGoyal:Parag1@goyal123@cluster0.helhe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';

@@ -1,6 +1,6 @@
 import { CREATE, DELETE, FETCH_ALL, LIKE, UPDATE } from "../constants/actionTypes";
 
-export default (posts = [], action) => {
+const reducer = (posts = [], action) => {
     switch (action.type) {
         case CREATE:
             return [...posts, action.payload];
@@ -15,3 +15,5 @@ export default (posts = [], action) => {
             return posts;
     }
 }
+
+export default reducer;

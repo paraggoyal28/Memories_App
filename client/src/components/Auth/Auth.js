@@ -8,6 +8,10 @@ import Icon from './icon';
 import { useDispatch } from 'react-redux';
 import { AUTH } from '../../constants/actionTypes';
 import { useHistory } from 'react-router-dom';
+import { signup, signin } from '../../actions/auth';
+
+const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+
 
 const Auth = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -15,8 +19,14 @@ const Auth = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
-
-    const handleSubmit = () => {
+    const [formData, setFormData] = useState(initialState);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isSignup) {
+            dispatch(signup(formData, history));
+        } else {
+            dispatch(signin(formData, history));
+        }
 
     }
 
@@ -24,13 +34,13 @@ const Auth = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     }
 
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false);
+        setShowPassword(false);
     }
 
     const googleSuccess = async (res) => {
